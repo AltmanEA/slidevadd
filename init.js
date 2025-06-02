@@ -1,8 +1,7 @@
-import fs from "node:fs";const name = process.argv[2];
+import fs from "node:fs";
+import path from "node:path";
 
-if (!name) {
-  throw new Error("Name is required");
-}
+const name = path.resolve(".").split(path.sep).pop();
 
 createIfNotExist(`./${name}`);
 createIfNotExist("./slides");
@@ -11,7 +10,7 @@ createIfNotExist("./.github/workflows");
 
 fs.writeFileSync(
   "./slides/slides.json",
-  JSON.stringify({ name: name, slides: [] }, null, 2)
+  JSON.stringify({ slides: [] }, null, 2)
 );
 fs.copyFileSync("./slidevadd/index.html", `./${name}/index.html`);
 

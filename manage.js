@@ -29,14 +29,16 @@ try {
     fs.unlinkSync(`./slides/${name}.md`);
   }
 
-  const list_slides = current_slides.slides
-    .map((name, index) => `${index + 1}. [${name}](./${name}/index.html)`)
-    .join("\n");
   fs.writeFileSync(
     "./slides/slides.json",
     JSON.stringify(current_slides, null, 2)
   );
+
+  const list_slides = current_slides.slides
+    .map((name, index) => `${index + 1}. [${name}](./${name}/index.html)`)
+    .join("\n");    
   fs.writeFileSync(`./${current_slides.name}/slides.md`, list_slides);
+
   console.log("Slide added:", name);
 } catch (e) {
   console.log(e.message);

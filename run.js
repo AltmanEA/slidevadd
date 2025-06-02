@@ -1,6 +1,8 @@
 import fs from "node:fs";
 import { exec, spawn } from "node:child_process";
 
+const project = path.resolve(".").split(path.sep).pop();
+
 const mode = process.argv[2];
 const name = process.argv[3];
 
@@ -19,7 +21,7 @@ if (!slides.includes(name)) {
 
 let command = "";
 if (mode === "build") {
-  const out = `/${slidesJson.name}/${name}`;
+  const out = `/${project}/${name}`;
   fs.rmSync(`.${out}`, { recursive: true, force: true });
   fs.mkdirSync(`.${out}`);  
   // command = `pnpm build --out .${out} --base ./ ./slides/${name}.md`;
