@@ -1,9 +1,9 @@
 import fs from "node:fs";
 import path from "node:path";
 
-const name = path.resolve(".").split(path.sep).pop();
+const projectName = path.resolve(".").split(path.sep).pop();
 
-createIfNotExist(`./${name}`);
+createIfNotExist(`./${projectName}`);
 createIfNotExist("./slides");
 createIfNotExist("./.github");
 createIfNotExist("./.github/workflows");
@@ -12,12 +12,12 @@ fs.writeFileSync(
   "./slides/slides.json",
   JSON.stringify({ slides: [] }, null, 2)
 );
-fs.copyFileSync("./slidevadd/index.html", `./${name}/index.html`);
+fs.copyFileSync("./slidevadd/index.html", `./${projectName}/index.html`);
 
 // github workflows
 const syaml = fs.readFileSync("./slidevadd/static.yml", "utf8");
 const lines = syaml.split("\n");
-lines[39] = `          path: './${name}'`;
+lines[39] = `          path: './${projectName}'`;
 fs.writeFileSync("./.github/workflows/static.yml", lines.join("\n"));
 
 

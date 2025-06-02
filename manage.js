@@ -1,6 +1,8 @@
 import fs from "node:fs";
+import path from "node:path";
 
 try {
+  const projectName = path.resolve(".").split(path.sep).pop();
   const mode = process.argv[2];
   const name = process.argv[3];
 
@@ -37,7 +39,7 @@ try {
   const list_slides = current_slides.slides
     .map((name, index) => `${index + 1}. [${name}](./${name}/index.html)`)
     .join("\n");    
-  fs.writeFileSync(`./${current_slides.name}/slides.md`, list_slides);
+  fs.writeFileSync(`./${projectName}/slides.md`, list_slides);
 
   console.log("Slide added:", name);
 } catch (e) {
