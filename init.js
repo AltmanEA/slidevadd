@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
+import { spawn } from "node:child_process";
 
 const projectName = path.resolve(".").split(path.sep).pop();
 
@@ -24,9 +25,17 @@ fs.writeFileSync("./.github/workflows/static.yml", lines.join("\n"));
 const data = JSON.parse(fs.readFileSync("./package.json", "utf8"));
 data.scripts["s:add"] = "node ./slidevadd/manage.js add";
 data.scripts["s:del"] = "node ./slidevadd/manage.js delete";
+data.scripts["s:up"] = "node ./slidevadd/manage.js up";
 data.scripts["s:build"] = "node ./slidevadd/run.js build";
 data.scripts["s:dev"] = "node ./slidevadd/run.js dev";
 fs.writeFileSync("./package.json", JSON.stringify(data, null, 2));
+
+console.log("install node module"); 
+const child = spawn("pnpm install cheerio", { shell: true, stdio: "inherit" });
+child.on("close", (code) => {
+  console.log(`Install process exited with code ${code}`);
+})
+
 
 function createIfNotExist(path) {
   if (!fs.existsSync(path)) {
