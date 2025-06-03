@@ -27,6 +27,7 @@ try {
     }
     current_slides.slides = current_slides.slides.filter((s) => s !== name);
     fs.unlinkSync(`./slides/${name}.md`);
+    fs.rmSync(`./${projectName}/${name}`, { recursive: true, force: true });
   }
   fs.writeFileSync(
     "./slides/slides.json",
