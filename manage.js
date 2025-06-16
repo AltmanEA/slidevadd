@@ -46,7 +46,7 @@ try {
   const list_slides = current_slides.slides
     .map((name, index) => `${index + 1}. [${titles[index]}](./${name}/index.html)`)
     .join("\n");
-  fs.writeFileSync(`./${projectName}/slides.md`, list_slides);
+  fs.writeFileSync(`./${projectName}/slide_list.md`, list_slides);  
 
   console.log("Done");
 } catch (e) {

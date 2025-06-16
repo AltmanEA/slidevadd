@@ -6,14 +6,14 @@ const projectName = path.resolve(".").split(path.sep).pop();
 
 createIfNotExist(`./${projectName}`);
 createIfNotExist("./slides");
+createIfNotExist("./slides/components");
 createIfNotExist("./.github");
 createIfNotExist("./.github/workflows");
 
-fs.writeFileSync(
-  "./slides/slides.json",
-  JSON.stringify({ slides: [] }, null, 2)
-);
+// slidevadd files
+fs.writeFileSync("./slides/slides.json", JSON.stringify({ slides: [] }, null, 2));
 fs.copyFileSync("./slidevadd/index.html", `./${projectName}/index.html`);
+fs.copyFileSync("./slidevadd/Courser.vue", `./slides/components/Courser.vue`);
 
 // github workflows
 const syaml = fs.readFileSync("./slidevadd/static.yml", "utf8");
@@ -21,7 +21,7 @@ const lines = syaml.split("\n");
 lines[39] = `          path: './${projectName}'`;
 fs.writeFileSync("./.github/workflows/static.yml", lines.join("\n"));
 
-
+// package.json
 const data = JSON.parse(fs.readFileSync("./package.json", "utf8"));
 data.scripts["s:add"] = "node ./slidevadd/manage.js add";
 data.scripts["s:del"] = "node ./slidevadd/manage.js delete";
@@ -30,6 +30,7 @@ data.scripts["s:build"] = "node ./slidevadd/run.js build";
 data.scripts["s:dev"] = "node ./slidevadd/run.js dev";
 fs.writeFileSync("./package.json", JSON.stringify(data, null, 2));
 
+// install additional node module
 console.log("install node module"); 
 const child = spawn("pnpm install cheerio", { shell: true, stdio: "inherit" });
 child.on("close", (code) => {

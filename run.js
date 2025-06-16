@@ -42,7 +42,7 @@ child.on("close", (code) => {
   } else {
     if (mode === "build") {
       const title = getTitleByLink(`./${out}/index.html`);
-      replaceLineInFile(`./${projectName}/slides.md`, index+1, `${index + 1}. [${title}](./${name}/index.html)`);
+      replaceLineInFile(`./${projectName}/slide_list.md`, index+1, `${index + 1}. [${title}](./${name}/index.html)`);
     }
   }
 });
