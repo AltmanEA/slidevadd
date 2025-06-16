@@ -14,6 +14,7 @@ createIfNotExist("./.github/workflows");
 fs.writeFileSync("./slides/slides.json", JSON.stringify({ slides: [] }, null, 2));
 fs.copyFileSync("./slidevadd/index.html", `./${projectName}/index.html`);
 fs.copyFileSync("./slidevadd/Courser.vue", `./slides/components/Courser.vue`);
+fs.copyFileSync("./slidevadd/global-top.vue", `./slides/global-top.vue`);
 
 // github workflows
 const syaml = fs.readFileSync("./slidevadd/static.yml", "utf8");
